@@ -105,6 +105,8 @@ Ember.Uploader = Ember.Object.extend(Ember.Evented, {
 
   _ajax: function(settings) {
     return new Ember.RSVP.Promise(function(resolve, reject) {
+      settings.crossDomain = true;
+      settings.xhrFields = {withCredentials: true};
       settings.success = function(data) {
         Ember.run(null, resolve, data);
       };
