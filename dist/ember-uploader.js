@@ -22,7 +22,7 @@ Ember.Uploader = Ember.Object.extend(Ember.Evented, {
    * @param  {array} extra
    * @return {object}       jquery promise from ajax object
    */
-  upload: function(files, extra) {
+  upload: function(files, extra, headers) {
     extra = extra || {};
     var data = this.setupFormData(files, extra);
     var url  = get(this, 'url');
@@ -31,7 +31,7 @@ Ember.Uploader = Ember.Object.extend(Ember.Evented, {
 
     set(this, 'isUploading', true);
 
-    return this.ajax(url, data, type).then(function(respData) {
+    return this.ajax(url, data, type, headers).then(function(respData) {
       self.didUpload(respData);
       return respData;
     });
