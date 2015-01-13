@@ -82,7 +82,7 @@ Ember.Uploader = Ember.Object.extend(Ember.Evented, {
     this.trigger('isAborting');
   },
 
-  ajax: function(url, params, method) {
+  ajax: function(url, params, method, headers) {
     var self = this;
     var settings = {
       url: url,
@@ -99,7 +99,9 @@ Ember.Uploader = Ember.Object.extend(Ember.Evented, {
       },
       data: params
     };
-
+    if (headers) {
+        settings.headers = headers;
+    }
     return this._ajax(settings);
   },
 
