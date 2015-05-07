@@ -47,11 +47,11 @@ Ember.Uploader = Ember.Object.extend(Ember.Evented, {
     // if is a array of files ...
     if (Ember.isArray(files)) {
       for (var i = files.length - 1; i >= 0; i--) {
-        formData.append(this.toNamespacedParam(this.paramName), files[i]);
+        formData.append(this.toNamespacedParam(this.paramName), files[i], encodeURI(files[i].name));
       }
     } else {
       // if has only one file object ...
-      formData.append(this.toNamespacedParam(this.paramName), files);
+      formData.append(this.toNamespacedParam(this.paramName), files, encodeURI(files.name));
     }
 
     return formData;
