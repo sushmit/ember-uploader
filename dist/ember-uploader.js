@@ -3,6 +3,11 @@
 var get = Ember.get,
     set = Ember.set;
 
+function removeNonASCII(str){
+    str = str || '';
+    return str.replace(/[^\x00-\x7F]/g, "_");
+}
+
 Ember.Uploader = Ember.Object.extend(Ember.Evented, {
   url: null,
   paramNamespace: null,
@@ -49,11 +54,11 @@ Ember.Uploader = Ember.Object.extend(Ember.Evented, {
     // if is a array of files ...
     if (Ember.isArray(files)) {
       for (var i = files.length - 1; i >= 0; i--) {
-        formData.append(this.toNamespacedParam(this.paramName), files[i], encodeURI(files[i].name));
+        formData.append(this.toNamespacedParam(this.paramName), files[i], removeNonASCII(files[i].name));
       }
     } else {
       // if has only one file object ...
-      formData.append(this.toNamespacedParam(this.paramName), files, encodeURI(files.name));
+      formData.append(this.toNamespacedParam(this.paramName), files, removeNonASCII(files.name));
     }
 
     return formData;
